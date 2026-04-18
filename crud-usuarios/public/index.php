@@ -1,5 +1,7 @@
 <?php
 
+
+
 declare(strict_types=1);
 // ── Guardia de seguridad: bloquear acceso directo a archivos/carpetas ──────────
 // El .htaccess redirige internamente cualquier URL que no sea public/ hacia aquí.
@@ -26,6 +28,7 @@ require_once __DIR__ . '/../Common/ClassLoader.php';
 require_once __DIR__ . '/../Common/DependencyInjection.php';
 require_once __DIR__ . '/../Infrastructure/Entrypoints/Web/Presentation/View.php';
 require_once __DIR__ . '/../Infrastructure/Entrypoints/Web/Presentation/Flash.php';
+//require_once __DIR__ . '/../Application/Services/Dto/Commands/CreateUserCommand.php';
 DependencyInjection::boot();
 Flash::start();
 // ──────────────────────────────────────────────────────────────

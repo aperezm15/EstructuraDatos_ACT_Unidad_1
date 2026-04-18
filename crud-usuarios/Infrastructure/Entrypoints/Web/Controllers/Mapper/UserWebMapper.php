@@ -1,14 +1,23 @@
 <?php
 
-
-
 declare(strict_types=1);
 
 final class UserWebMapper
 {
-    /**
-     * Convierte la respuesta del dominio a un formato simple para la vista
-     */
+ 
+    public function fromCreateRequestToCommand(CreateUserWebRequest $request): CreateUserCommand
+{
+    $generateId = bin2hex(random_bytes(16));
+    return new CreateUserCommand(
+        $generateId,
+        $request->getName(),     
+        $request->getEmail(),
+        $request->getPassword(),
+        $request->getRole()             
+    );
+}
+
+
     public function mapResponse(UserModel $user): UserResponse
     {
         return new UserResponse(
@@ -20,13 +29,20 @@ final class UserWebMapper
         );
     }
 
-    /**
-     * Convierte una lista de usuarios del dominio a una lista de respuestas
-     * @param User[] $users
-     * @return UserResponse[]
-     */
+ 
     public function mapCollection(array $users): array
     {
         return array_map(fn(UserModel $user) => $this->mapResponse($user), $users);
     }
+
+    public function fromModelToResponse(UserModel $user): UserResponse
+{
+    return new UserResponse(
+        $user->Id()->value(),
+        $user->Name()->value(),
+        $user->Email()->value(),
+        $user->Role(),
+        $user->Status()
+    );
+}
 }
