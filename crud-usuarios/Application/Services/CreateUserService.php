@@ -2,14 +2,6 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../Ports/In/CreateUserUseCase.php';
-require_once __DIR__ . '/../Ports/Out/SaveUserPort.php';
-require_once __DIR__ . '/../Ports/Out/GetUserByEmailPort.php';
-require_once __DIR__ . '/Mappers/UserApplicationMapper.php';
-require_once __DIR__ . '/../../Domain/Exceptions/UserAlreadyExistsException.php';
-require_once __DIR__ . '/../../Domain/ValueObjects/UserEmail.php';
-require_once __DIR__ . '/../Ports/Out/SendEmailPort.php';
-
 final class CreateUserService implements CreateUserUseCase
 {
     private SaveUserPort $saveUserPort;

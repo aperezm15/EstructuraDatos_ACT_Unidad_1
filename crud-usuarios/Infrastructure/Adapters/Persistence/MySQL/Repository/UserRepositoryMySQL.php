@@ -65,34 +65,6 @@ NOW()
         }
         return $savedUser;
     }
-    public function update(UserModel $user): UserModel
-    {
-        $dto = $this->mapper->fromModelToDto($user);
-        $sql = '
-UPDATE users
-SET name = :name,
-email = :email,
-password = :password,
-role = :role,
-status = :status,
-updated_at = NOW()
-WHERE id = :id
-';
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute(array(
-            ':id' => $dto->id(),
-            ':name' => $dto->name(),
-            ':email' => $dto->email(),
-            ':password' => $dto->password(),
-            ':role' => $dto->role(),
-            ':status' => $dto->status(),
-        ));
-        $updatedUser = $this->getById(new UserId($dto->id()));
-        if ($updatedUser === null) {
-            throw new RuntimeException('The user could not be recovered after update.');
-        }
-        return $updatedUser;
-    }
     public function getById(UserId $userId): ?UserModel
     {
         $sql = '
@@ -167,14 +139,6 @@ ORDER BY name ASC
         $rows = $statement->fetchAll();
         return $this->mapper->fromRowsToModels($rows);
     }
-    public function delete(UserId $userId): void
-    {
-        $sql = 'DELETE FROM users WHERE id = :id';
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute(array(
-            ':id' => $userId->value(),
-        ));
-    }
 
     public function saveWithToken(UserModel $user, string $token): void
     {
@@ -215,6 +179,29 @@ ORDER BY name ASC
 public function updatePassword(UserId $id, string $hashedPassword): void {
     $stmt = $this->pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
     $stmt->execute([$hashedPassword, $id->value()]);
+}
+
+public function update(UserModel $user): UserModel {
+    $stmt = $this->pdo->prepare("
+        UPDATE users 
+        SET name = ?, email = ?, password = ?, role = ?, status = ? 
+        WHERE id = ?
+    ");
+    
+    $stmt->execute([
+        $user->name()->value(),
+        $user->email()->value(),
+        $user->password()->value(),
+        $user->role(),
+        $user->status(),
+        $user->id()->value()
+    ]);
+    return $user;
+}
+
+public function delete(UserId $id): void {
+    $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = ?");
+    $stmt->execute([$id->value()]);
 }
 
 }

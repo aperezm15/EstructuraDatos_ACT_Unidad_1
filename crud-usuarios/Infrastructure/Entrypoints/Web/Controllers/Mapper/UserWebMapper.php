@@ -4,21 +4,40 @@ declare(strict_types=1);
 
 final class UserWebMapper
 {
- 
     public function fromCreateRequestToCommand(CreateUserWebRequest $request): CreateUserCommand
-{
-    $generateId = bin2hex(random_bytes(16));
-    return new CreateUserCommand(
-        $generateId,
-        $request->getName(),     
-        $request->getEmail(),
-        $request->getPassword(),
-        $request->getRole()             
-    );
-}
+    {
+        return new CreateUserCommand(
+            $request->getId(), // Usamos el ID que viene del Controller/Form
+            $request->getName(),
+            $request->getEmail(),
+            $request->getPassword(),
+            $request->getRole()
+        );
+    }
 
+    public function fromUpdateRequestToCommand(UpdateUserWebRequest $request): UpdateUserCommand
+    {
+        return new UpdateUserCommand(
+            $request->getId(),
+            $request->getName(),
+            $request->getEmail(),
+            $request->getPassword(),
+            $request->getRole(),
+            $request->getStatus()
+        );
+    }
 
-    public function mapResponse(UserModel $user): UserResponse
+    public function fromIdToGetByIdQuery(string $id): GetUserByIdQuery
+    {
+        return new GetUserByIdQuery($id);
+    }
+
+    public function fromIdToDeleteCommand(string $id): DeleteUserCommand
+    {
+        return new DeleteUserCommand($id);
+    }
+
+    public function fromModelToResponse(UserModel $user): UserResponse
     {
         return new UserResponse(
             $user->id()->value(),
@@ -29,28 +48,11 @@ final class UserWebMapper
         );
     }
 
- 
-    public function mapCollection(array $users): array
+    public function fromModelsToResponses(array $users): array
     {
-        return array_map(fn(UserModel $user) => $this->mapResponse($user), $users);
+        return array_map(
+            fn(UserModel $user) => $this->fromModelToResponse($user),
+            $users
+        );
     }
-
-    public function fromModelToResponse(UserModel $user): UserResponse
-{
-    return new UserResponse(
-        $user->Id()->value(),
-        $user->Name()->value(),
-        $user->Email()->value(),
-        $user->Role(),
-        $user->Status()
-    );
-}
-
-public function fromModelsToResponses(array $users): array
-{
-    return array_map(
-        fn(UserModel $user) => $this->fromModelToResponse($user),
-        $users
-    );
-}
 }

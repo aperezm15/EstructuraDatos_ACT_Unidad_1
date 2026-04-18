@@ -1,13 +1,7 @@
 <?php
 
 declare(strict_types=1);
-require_once __DIR__ . '/../Dto/UserPersistenceDto.php';
-require_once __DIR__ . '/../Entity/UserEntity.php';
-require_once __DIR__ . '/../../../../../Domain/Models/UserModel.php';
-require_once __DIR__ . '/../../../../../Domain/ValueObjects/UserId.php';
-require_once __DIR__ . '/../../../../../Domain/ValueObjects/UserName.php';
-require_once __DIR__ . '/../../../../../Domain/ValueObjects/UserEmail.php';
-require_once __DIR__ . '/../../../../../Domain/ValueObjects/UserPassword.php';
+
 final class UserPersistenceMapper
 {
     public function fromModelToDto(UserModel $user): UserPersistenceDto

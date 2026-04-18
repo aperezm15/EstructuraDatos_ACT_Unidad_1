@@ -13,10 +13,22 @@
     </div>
 <?php endif; ?>
 <ul>
-    <li><strong>C:</strong> Registrar usuario</li>
-    <li><strong>R:</strong> Consultar usuario</li>
-    <li><strong>U:</strong> Actualizar usuario</li>
-    <li><strong>D:</strong> Eliminar usuario</li>
-    <li><strong>L:</strong> Listar usuarios</li>
+    <li>
+        <a href="?route=users.create">C: Registrar usuario</a>
+    </li>
+    <li>
+        <a href="?route=users.index">R: Consultar usuario</a>
+    </li>
+    <li>
+        <a href="?route=users.index">U: Actualizar usuario</a> 
+        
+    </li>
+    <li>
+        <a href="?route=users.index">D: Eliminar usuario</a>
+        
+    </li>
+    <li>
+        <a href="?route=users.index">L: Listar usuarios</a>
+    </li>
 </ul>
 <?php require __DIR__ . '/layouts/footer.php'; ?>

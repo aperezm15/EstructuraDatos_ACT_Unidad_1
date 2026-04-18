@@ -1,13 +1,17 @@
 <?php
 declare(strict_types=1);
+
 require_once __DIR__ . '/../../../Domain/Models/UserModel.php';
+require_once __DIR__ . '/../../../Domain/ValueObjects/UserId.php';
+
 interface SaveUserPort
 {
- public function save(UserModel $user): UserModel; #No se esta utilizando, lo cambie por saveWithToken
- public function detele(UserId $id): void;
- public function update(UserModel $user): void;
+    // Método para registro normal
+    public function save(UserModel $user): UserModel;
 
- public function saveWithToken(UserModel $user, string $token): void;
+    // Método para registro con activación por email
+    public function saveWithToken(UserModel $user, string $token): void;
 
- public function updatePassword(UserId $id, string $hashedPassword): void;
+    // Método para recuperación de contraseña
+    public function updatePassword(UserId $id, string $hashedPassword): void;
 }

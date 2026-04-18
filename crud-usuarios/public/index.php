@@ -113,6 +113,9 @@ try {
         case 'show':
             $controller = DependencyInjection::getUserController();
             $id = $_GET['id'] ?? '';
+            if (empty($id)) {
+        throw new Exception("El ID del usuario es necesario para ver el detalle.");
+    }
             $user = $controller->show($id);
             View::render('users/show', ['pageTitle' => 'Detalle', 'user' => $user, 'message' => Flash::message()]);
             break;
@@ -198,8 +201,12 @@ try {
             throw new RuntimeException('Acción no soportada.');
     }
 } catch (Throwable $exception) {
-    Flash::setMessage($exception->getMessage());
-    View::redirect('home'); // Redirección genérica en caso de error
+    //Flash::setMessage($exception->getMessage());
+    //View::redirect('home'); // Redirección genérica en caso de error
+    die("<h3>Error Detectado:</h3>" . 
+        "<strong>Mensaje:</strong> " . $exception->getMessage() . "<br>" .
+        "<strong>Archivo:</strong> " . $exception->getFile() . "<br>" .
+        "<strong>Línea:</strong> " . $exception->getLine());
 }
 
 // ── View Builders & Helpers ───────────────────────────────────────────────────

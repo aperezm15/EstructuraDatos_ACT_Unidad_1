@@ -117,7 +117,7 @@ final class DependencyInjection
             self::getDeleteUserUseCase(),
             self::getResetPasswordService(),
             self::getUserWebMapper(),
-            self::getView()                  
+                   
         );
     }
 }
