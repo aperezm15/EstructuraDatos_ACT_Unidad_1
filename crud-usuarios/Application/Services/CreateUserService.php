@@ -36,7 +36,7 @@ final class CreateUserService implements CreateUserUseCase
         // 1. Generamos el token
         $activationToken = bin2hex(random_bytes(32));
 
-        // 2. Guardamos usando el método del TOKEN (quitamos el return de arriba)
+        // 2. Guardamos usando el método del TOKEN
         $this->saveUserPort->saveWithToken($user, $activationToken);
 
         // 3. Preparamos y enviamos el correo
@@ -46,7 +46,6 @@ final class CreateUserService implements CreateUserUseCase
 
         $this->sendEmailPort->send($user->email()->value(), $subject, $body);
 
-        // 4. AHORA SÍ, retornamos al final
         return $user;
     }
 
