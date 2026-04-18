@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 final class WebRoutes
 {
     /**
@@ -60,6 +61,11 @@ final class WebRoutes
             'auth.forgot.send' => array(
                 'method' => 'POST',
                 'action' => 'forgot.send',
+            ),
+            // --- RUTA DE ACTIVACIÓN REGISTRADA ---
+            'activate' => array(
+                'method' => 'GET',
+                'action' => 'activate',
             ),
         );
     }

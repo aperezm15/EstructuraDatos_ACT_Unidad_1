@@ -2,3 +2,7 @@ PARA: aperezm15@unicartagena.edu.co
 ASUNTO: Activa tu cuenta, Alvaro Perez 
 CONTENIDO: Hola! Por favor activa tu cuenta haciendo clic en el siguiente enlace: http://localhost/tu-proyecto/public/index.php?route=activate&token=9f4342b8cec04428beebe408d81d4781be40a3e4c745e135dddade66f6bb2b4c 
 ------------------------------
+PARA: aperezm15@unicartagena.edu.co 
+ASUNTO: Activa tu cuenta, Alvaro Perez 
+CONTENIDO: Hola! Por favor activa tu cuenta haciendo clic en el siguiente enlace: http://localhost/crud-usuarios/public/index.php?route=activate&token=bae0bf7ef2b37aed5831c7a968073c8ad9078fcd4eccf23a8cee58fe517287fd 
+------------------------------
