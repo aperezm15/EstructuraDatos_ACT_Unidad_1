@@ -193,4 +193,21 @@ ORDER BY name ASC
 
         $stmt->execute();
     }
+
+    public function activateByToken(string $token): bool
+{
+    // 1. Buscamos si existe un usuario con ese token
+    // 2. Si existe, cambiamos su status a 'ACTIVE' y borramos el token para que no se use dos veces
+    $sql = "UPDATE users 
+            SET status = 'ACTIVE', activation_token = NULL 
+            WHERE activation_token = :token 
+            LIMIT 1";
+
+    $stmt = $this->pdo->prepare($sql); 
+    $stmt->bindValue(':token', $token);
+    $stmt->execute();
+
+    // Retornamos true si se modificó alguna fila, false si el token no existía
+    return $stmt->rowCount() > 0;
+}
 }
