@@ -40,7 +40,7 @@ final class CreateUserService implements CreateUserUseCase
         $this->saveUserPort->saveWithToken($user, $activationToken);
 
         // 3. Preparamos y enviamos el correo
-        $activationLink = "http://localhost/tu-proyecto/public/index.php?route=activate&token=" . $activationToken;
+        $activationLink = "http://localhost/crud-usuarios/public/index.php?route=activate&token=" . $activationToken;
         $subject = "Activa tu cuenta, " . $user->name()->value();
         $body = "Hola! Por favor activa tu cuenta haciendo clic en el siguiente enlace: " . $activationLink;
 
